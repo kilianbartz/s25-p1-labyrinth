@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://qql7qq77puk4"]
+
+[ext_resource type="PackedScene" uid="uid://be78rviqf0cmj" path="res://scene/torch.fbx" id="1_6wjlc"]
+[ext_resource type="Material" uid="uid://caikacxq8kxqx" path="res://materials/metal.tres" id="2_icg1l"]
+
+[node name="torch" instance=ExtResource("1_6wjlc")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+
+[node name="torch_Low" parent="." index="0"]
+material_override = ExtResource("2_icg1l")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.70635, 0.536171)
+light_color = Color(0.960784, 0.576471, 0.313726, 1)
+light_energy = 2.767
