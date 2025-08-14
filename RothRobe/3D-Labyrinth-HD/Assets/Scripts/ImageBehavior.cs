@@ -6,36 +6,36 @@ using UnityEngine.UI;
 
 public class ImageBehavior : MonoBehaviour
 {
-    private string imagepath = "Assets/Rendered_Images";
-    private Transform parentTransform;
-    private Vector3 basePosition;
+    private const string Imagepath = "Assets/Rendered_Images";
+    private Transform _parentTransform;
+    private Vector3 _basePosition;
 
-    private Texture2D loadedTexture;
-    private bool isViewing = false;
+    private Texture2D _loadedTexture;
+    private bool _isViewing;
     
-    private RawImage imageUI;
-    private PlayerController playerController;
+    private RawImage _imageUI;
+    private PlayerController _playerController;
     
-    private AudioSource ambientAudioSource;  
-    private AudioSource foundAudioSource;    
+    private AudioSource _ambientAudioSource;  
+    private AudioSource _foundAudioSource;    
 
     void Start()
     {
-        parentTransform = transform.parent;
-        basePosition = parentTransform.position;
+        _parentTransform = transform.parent;
+        _basePosition = _parentTransform.position;
         var canvas = GameObject.Find("ImageCanvas");
         if (canvas != null)
         {
-            imageUI = canvas.GetComponentInChildren<RawImage>(true); // ← `true` bedeutet: auch inaktive
+            _imageUI = canvas.GetComponentInChildren<RawImage>(true); // ← `true` bedeutet: auch inaktive
         }
         
-        playerController = GameObject.FindWithTag("Player")?.GetComponent<PlayerController>();
+        _playerController = GameObject.FindWithTag("Player")?.GetComponent<PlayerController>();
         
         AudioSource[] sources = GetComponents<AudioSource>();
         if (sources.Length >= 2)
         {
-            ambientAudioSource = sources[0];
-            foundAudioSource = sources[1];
+            _ambientAudioSource = sources[0];
+            _foundAudioSource = sources[1];
         }
         
         LoadImage();
@@ -43,11 +43,11 @@ public class ImageBehavior : MonoBehaviour
 
     void Update()
     {
-        if (!isViewing)
+        if (!_isViewing)
         {
-            parentTransform.Rotate(0f, (50f * Time.deltaTime) % 360, 0f);
+            _parentTransform.Rotate(0f, (50f * Time.deltaTime) % 360, 0f);
             float offsetY = Mathf.Sin(Time.time * 5) * 0.1f;
-            parentTransform.position = basePosition + new Vector3(0, offsetY, 0);
+            _parentTransform.position = _basePosition + new Vector3(0, offsetY, 0);
         }
         else
         {
@@ -61,14 +61,14 @@ public class ImageBehavior : MonoBehaviour
 
     void LoadImage()
     {
-        if (!Directory.Exists(imagepath))
+        if (!Directory.Exists(Imagepath))
         {
-            Debug.LogError($"Ordner nicht gefunden: {imagepath}");
+            Debug.LogError($"Ordner nicht gefunden: {Imagepath}");
             return;
         }
 
         string[] imagePaths = Directory
-            .GetFiles(imagepath)
+            .GetFiles(Imagepath)
             .Where(f => f.ToLower().EndsWith(".png")
                      || f.ToLower().EndsWith(".jpg")
                      || f.ToLower().EndsWith(".jpeg"))
@@ -81,10 +81,10 @@ public class ImageBehavior : MonoBehaviour
         }
 
         string selectedPath = imagePaths[Random.Range(0, imagePaths.Length)];
-        loadedTexture = LoadTextureFromPath(selectedPath);
+        _loadedTexture = LoadTextureFromPath(selectedPath);
 
-        Renderer renderer = GetComponent<Renderer>();
-        renderer.material.mainTexture = loadedTexture;
+        Renderer imageRenderer = GetComponent<Renderer>();
+        imageRenderer.material.mainTexture = _loadedTexture;
     }
 
     Texture2D LoadTextureFromPath(string path)
@@ -97,7 +97,7 @@ public class ImageBehavior : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isViewing)
+        if (other.CompareTag("Player") && !_isViewing)
         {
             ShowImage();
         }
@@ -105,27 +105,27 @@ public class ImageBehavior : MonoBehaviour
 
     void ShowImage()
     {
-        if (imageUI == null || loadedTexture == null) return;
+        if (_imageUI == null || _loadedTexture == null) return;
 
-        imageUI.texture = loadedTexture;
-        imageUI.gameObject.SetActive(true);
-        isViewing = true;
+        _imageUI.texture = _loadedTexture;
+        _imageUI.gameObject.SetActive(true);
+        _isViewing = true;
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         
-        if (playerController != null)
-            playerController.enabled = false;
+        if (_playerController != null)
+            _playerController.enabled = false;
         
-        if (ambientAudioSource != null)
-            ambientAudioSource.Stop();
+        if (_ambientAudioSource != null)
+            _ambientAudioSource.Stop();
         else
         {
             Debug.Log("AmbientAudio null");
         }
         
-        if (foundAudioSource != null && !foundAudioSource.isPlaying)
-            foundAudioSource.Play();
+        if (_foundAudioSource != null && !_foundAudioSource.isPlaying)
+            _foundAudioSource.Play();
         else
         {
             Debug.Log("FoundAudio null");
@@ -134,16 +134,16 @@ public class ImageBehavior : MonoBehaviour
 
     void HideImage()
     {
-        if (imageUI == null) return;
+        if (_imageUI == null) return;
 
-        imageUI.gameObject.SetActive(false);
-        isViewing = false;
+        _imageUI.gameObject.SetActive(false);
+        _isViewing = false;
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         
-        if (playerController != null)
-            playerController.enabled = true;
+        if (_playerController != null)
+            _playerController.enabled = true;
 
         gameObject.SetActive(false); // Objekt verschwindet nach Ansicht
     }

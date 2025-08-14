@@ -487,6 +487,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &604310261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 604310263}
+  - component: {fileID: 604310262}
+  m_Layer: 0
+  m_Name: AITest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &604310262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604310261}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c04a063182d45e9b469846058443a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &604310263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604310261}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.90906, y: -0, z: 22.23835}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &732363972
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,12 +862,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d30fde9795f40888a924aedcef2155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asciiFilePath: Assets/Mazes/bigmaze.txt
+  asciiFilePath: Assets/Mazes/npcmaze.txt
   wallPrefab: {fileID: 3848009739280733103, guid: 66244d070c4514be5b088473de092e98, type: 3}
   glassPrefab: {fileID: 4738656205751395314, guid: 584aa8f20c5f7436cab15378a8275de5, type: 3}
   metalPrefab: {fileID: 2127472688412500375, guid: 4417eefe8096d4f4c9c08fea070367c0, type: 3}
   floorPrefab: {fileID: 5053814583733660794, guid: 6acc076bcfb5c40f7980c9f58d632ad2, type: 3}
   targetPrefab: {fileID: 5789751191986851213, guid: c5e2c0706665a49dfb162de7f2ef8aa9, type: 3}
+  npcPrefab: {fileID: 1234703264261930458, guid: c2735f133df024a14ac0729135f3d0e9, type: 3}
   playerObject: {fileID: 732363972}
 --- !u!4 &1277812878
 Transform:
@@ -1306,3 +1351,4 @@ SceneRoots:
   - {fileID: 1277812878}
   - {fileID: 1545359857}
   - {fileID: 537650853}
+  - {fileID: 604310263}

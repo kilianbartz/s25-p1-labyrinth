@@ -1,0 +1,35 @@
+[gd_scene load_steps=10 format=3 uid="uid://cjslp0sfarnw6"]
+
+[ext_resource type="PackedScene" uid="uid://6rf18cpxbrr" path="res://packed-scenes/game/characters/character_model.tscn" id="1_tcfsu"]
+[ext_resource type="Material" uid="uid://bb3ysrxdokufn" path="res://resources/models/character/materials/Material_NPC.tres" id="2_lrxrh"]
+[ext_resource type="Animation" uid="uid://66qr3rq3xecx" path="res://resources/models/character/animations/Idle.res" id="4_2o4xp"]
+[ext_resource type="Animation" uid="uid://slresv6tofk0" path="res://resources/models/character/animations/Run.res" id="5_q5c1p"]
+[ext_resource type="Animation" uid="uid://c5l1gtcckxkj7" path="res://resources/models/character/animations/Sneak.res" id="6_l7xbc"]
+[ext_resource type="Animation" uid="uid://dpxo0hp2m2k5w" path="res://resources/models/character/animations/TPose.res" id="7_eafqn"]
+[ext_resource type="Animation" uid="uid://hdglnftsovqb" path="res://resources/models/character/animations/Walk.res" id="8_ygsgy"]
+[ext_resource type="Animation" uid="uid://cmg0d6an5tkmw" path="res://resources/models/character/animations/WaveL.res" id="9_ie83a"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1sags"]
+_data = {
+&"Idle": ExtResource("4_2o4xp"),
+&"Run": ExtResource("5_q5c1p"),
+&"Sneak": ExtResource("6_l7xbc"),
+&"TPose": ExtResource("7_eafqn"),
+&"Walk": ExtResource("8_ygsgy"),
+&"WaveL": ExtResource("9_ie83a")
+}
+
+[node name="NpcCharacterModel3D" instance=ExtResource("1_tcfsu")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(-0.016374558, 0, 0, 0.999866)
+bones/5/rotation = Quaternion(-1.9808624e-09, 3.7322035e-08, 0.9991155, 0.042049836)
+bones/7/rotation = Quaternion(-1.9562685e-09, -3.7297443e-08, -0.9991155, 0.042049836)
+
+[node name="Character" parent="Armature/Skeleton3D" index="0"]
+material_override = ExtResource("2_lrxrh")
+
+[node name="AnimationTree" parent="." index="2"]
+libraries = {
+&"": SubResource("AnimationLibrary_1sags")
+}

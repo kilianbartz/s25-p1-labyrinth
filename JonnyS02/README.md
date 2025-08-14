@@ -1,57 +1,59 @@
-# Begehbares 3D-Labyrinth mit Ray Tracing in Unity
+# Erweiterte Spielmechanik – Verfolger‑NPC
 
-![Screenshot](img/img2.png)
+Dieser Zusatz‑README ergänzt die ursprüngliche Projektdokumentation um die **neue Verfolger‑Mechanik**.  
+Alle Grundfunktionen (Labyrinth, Taschenlampe, Ray Tracing usw.) bleiben unverändert und sind weiterhin in der ersten README beschrieben.  
+Weiter Details sind im beigefügten Bericht "Abgabe_2_Stengl.pdf" zu finden.
 
-## Projektbeschreibung
+---
 
-Dieses Projekt ist ein interaktives 3D-Labyrinth-Spiel, entwickelt mit Unity und der High Definition Render Pipeline (HDRP). Ziel ist es, in einem realistisch beleuchteten Labyrinth den Ausgang zu finden. Die Spielumgebung nutzt Ray-Tracing-Technologien zur realitätsnahen Darstellung von Licht, Schatten, Spiegelungen und Materialien.
+![](img/img4.png)
 
-Der Spieler bewegt sich in der Ego-Perspektive durch das Labyrinth, sammelt eine Taschenlampe auf und nutzt diese, um dunkle Bereiche auszuleuchten. Weiter Details sind im beigefügten Bericht "Abgabe_1_Stengl.pdf" zu finden.
+## 1 · Überblick
 
-Um das Spiel zu starten, wird der gesamte Ordner "Abgabe 1" heruntergeladen. Danach kann "Abgabe 1\Assets\MainScene.unity" mit Unity gestartet werden und los geht's :)
+* Ein einzelner **Wächter‑NPC** patrouilliert jetzt das Labyrinth.
+* Berührt er den Spieler **frontal**, endet die Partie (Niederlage).
+* Beim **Kontakt von hinten** stolpert der Wächter, kriecht kurzzeitig langsam und steht danach wieder auf.
+* Der NPC nutzt ein Geräusch‑basiertes **Suchsystem**: Er erhält nur einen Kreis (Mittelpunkt + Radius), in dem sich der Spieler irgendwo befindet.
 
-![Screenshot](img/img1.png)
+---
 
-## Features
+![](img/img6.png)
 
-- 🧭 **Labyrinth-Gameplay**: Spieler startet in der Mitte des Labyrinths und muss den Ausgang suchen.
-- 🔦 **Interaktive Taschenlampe**: Muss erst gefunden werden, bevor sie nutzbar ist.
-- 🧱 **Realistische Materialien**: Verschiedene Oberflächen mit Absorption, Reflexion und Transparenz.
-- 💡 **Dynamische Beleuchtung**: Ray-traced Point Lights, Emission Lights und Shadows.
-- 🎮 **Steuerung**: Gehen, Laufen, Springen, Ducken, Lichtsteuerung.
+## 2 · Suchradius & Spieler­einfluss
 
-## Steuerung
+| Aktion / Situation                 | Auswirkung auf Radius | Ergebnis für den Spieler            |
+|------------------------------------|-----------------------|-------------------------------------|
+| Spieler **rennt**                  | Radius verkleinert    | Wächter sucht fokussierter          |
+| Spieler **geht** oder steht        | Radius vergrößert     | Suche wird weiter gefasst           |
+| Wächter **sprintet**               | Radius vergrößert     | Eigenlärm erschwert seine Ortung    |
+| Abstand Spieler ↔ Wächter nimmt ab | Radius verkleinert    | Schritte werden deutlicher hörbar   |
 
-| Aktion            | Taste                |
-|------------------|----------------------|
-| Bewegen          | WASD                 |
-| Springen         | Leertaste            |
-| Ducken           | R                    |
-| Laufen           | Umschalttaste (Shift)|
-| Kamera drehen    | Mausbewegung         |
-| Taschenlampe an/aus | F (nach Einsammeln) |
+Durch kontrolliertes Tempo kann der Spieler daher den Suchradius aktiv beeinflussen.
 
-![Screenshot](img/img3.png)
+---
 
-## Technik & Tools
+![](img/img5.png)
 
-- **Unity HDRP** – für realistische Grafikeffekte
-- **Raytracing Features**:
-  - Ambient Occlusion
-  - Global Illumination
-  - Reflections
-  - Shadows
-- **Level-Design** mit [Piskel](https://www.piskelapp.com/): Export als C-Array zur Labyrinth-Generierung
-- **Materialien von**: [ambientCG](https://ambientcg.com), [3DTextures.me](https://3dtextures.me)
+## 3 · Ablauf einer Begegnung
 
-## Quellen
+1. **Erkennen** – Der Wächter erhält den aktuellen Suchkreis.
+2. **Entscheiden** – Sein KI‑Modell wählt ein Ziel innerhalb des Kreises und eine Geschwindigkeit.
+3. **Annähern** – Er folgt dem berechneten Pfad (Gehen / Rennen).
+4. **Kollision**
+    * **Frontal** → Spielende.
+    * **Von hinten** → Stolpern → Kriechen (0,5 m/s, wenige Sekunden) → Aufstehen.
+5. Nach dem Aufstehen beginnt der Zyklus erneut.
 
-- Unity: https://unity.com/de  
-- HDRP & Raytracing-Tutorial: [YouTube](https://www.youtube.com/watch?v=ad9f_nKU0ZA)  
-- Texturen: [ambientCG](https://ambientcg.com), [3DTextures.me](https://3dtextures.me)  
-- Taschenlampe Asset: [Unity Asset Store](https://assetstore.unity.com/packages/package/18972)  
-- Level-Editor: [Piskel](https://www.piskelapp.com)
+---
 
-## Autor
 
-**Jonathan Stengl**  
+## 5 · Spielstart
+
+Um das Spiel zu starten, sind folgende Schritte notwendig:
+
+1. Den vollständigen Ordner **„Abgabe 2“** herunterladen. (Den Ordner noch nicht in Unity öffnen!)
+2. In der Datei "Abgabe 2\Assets\NPC\OpenAIKey.txt" einen gültigen **OpenAI API‑Schlüssel** eintragen.
+3. Das NPC‑Modell unter folgendem Link herunterladen und speichern: https://jonathan-stengl.de/Ch35_nonPBR.fbx (Die Datei war zu groß für das Github-Projekt)
+4. Die heruntergeladene Datei in den Ordner "Abgabe 2\Assets\NPC\" verschieben.
+5. In Unity die Szene "Abgabe 2\Assets\MainScene.unity" öffnen und das Spiel starten.
+  

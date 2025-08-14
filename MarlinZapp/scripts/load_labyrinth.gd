@@ -55,6 +55,8 @@ func load_labyrinth():
 func create_wall_segment(wall_data):
 	var material_type = wall_data["material"]
 	var wall = StaticBody3D.new()
+	wall.set_collision_layer_value(2, true)
+	wall.set_collision_mask_value(2, true)
 	wall.position = get_position_from_json(wall_data)
 	wall.name = "Wall-"+str(wall.position)
 	
@@ -119,6 +121,7 @@ func create_wall_lantern(lantern_data):
 	lantern.name = "Lantern-"+str(lantern.position)
 	lantern.light_energy = 0.2
 	lantern.shadow_enabled = true
+	lantern.light_bake_mode = Light3D.BAKE_STATIC
 	if lantern_data["direction"] == "north":
 		lantern.rotation_degrees = Vector3(0,270,0)
 	elif lantern_data["direction"] == "west":
@@ -126,7 +129,7 @@ func create_wall_lantern(lantern_data):
 	elif lantern_data["direction"] == "south":
 		lantern.rotation_degrees = Vector3(0,90,0)
 	
-	var lantern_scene = preload("res://assets/lamp.tscn").instantiate()
+	var lantern_scene = preload("res://lamp.tscn").instantiate()
 	lantern_scene.position = Vector3(0.165, 0.155, 0.007)
 	lantern_scene.rotation_degrees.y = 17
 	lantern_scene.scale = Vector3(0.175, 0.175, 0.175)

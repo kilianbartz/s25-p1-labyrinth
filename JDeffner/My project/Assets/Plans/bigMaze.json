@@ -1,6 +1,6 @@
 {
   "wallHeight": 8,
-  "squareSize": 4,
+  "squareSize": 6,
   "wallsX": [
     { "array": [1, 2, 3, 2, 1, 3, 2, 1, 3, 0] },
     { "array": [3, 0, 1, 2, 0, 1, 0, 3, 2, 1] },

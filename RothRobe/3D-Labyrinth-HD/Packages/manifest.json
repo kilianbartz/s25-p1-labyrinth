@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.openai.unity": "8.8.1",
     "com.unity.collab-proxy": "2.8.2",
     "com.unity.feature.development": "1.0.2",
     "com.unity.inputsystem": "1.14.0",
@@ -40,5 +41,16 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "OpenUPM",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.openai",
+        "com.utilities"
+      ],
+      "overrideBuiltIns": true
+    }
+  ]
 }

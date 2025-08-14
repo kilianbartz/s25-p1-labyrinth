@@ -1,0 +1,165 @@
+[gd_scene load_steps=37 format=3 uid="uid://6rf18cpxbrr"]
+
+[ext_resource type="PackedScene" uid="uid://nyctgcss7agu" path="res://resources/models/character/simple_character.glb" id="1_u26vk"]
+[ext_resource type="Script" uid="uid://bdtdh3f4o48wf" path="res://scripts/game/characters/CharacterModel3D.cs" id="2_pvfdq"]
+[ext_resource type="Animation" uid="uid://msl6s16wchm8" path="res://resources/models/character/animations/WaveL.res" id="3_4mxoa"]
+[ext_resource type="Animation" uid="uid://66qr3rq3xecx" path="res://resources/models/character/animations/Idle.res" id="4_uayag"]
+[ext_resource type="Animation" uid="uid://slresv6tofk0" path="res://resources/models/character/animations/Run.res" id="5_4yi8y"]
+[ext_resource type="Animation" uid="uid://c5l1gtcckxkj7" path="res://resources/models/character/animations/Sneak.res" id="6_w4s0n"]
+[ext_resource type="Animation" uid="uid://dpxo0hp2m2k5w" path="res://resources/models/character/animations/TPose.res" id="7_t8wtf"]
+[ext_resource type="Animation" uid="uid://hdglnftsovqb" path="res://resources/models/character/animations/Walk.res" id="8_171n2"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1sags"]
+_data = {
+&"Idle": ExtResource("4_uayag"),
+&"Run": ExtResource("5_4yi8y"),
+&"Sneak": ExtResource("6_w4s0n"),
+&"TPose": ExtResource("7_t8wtf"),
+&"Walk": ExtResource("8_171n2"),
+&"WaveL": ExtResource("3_4mxoa")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pvfdq"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3jt4m"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uayag"]
+animation = &"Sneak"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4yi8y"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w4s0n"]
+animation = &"WaveL"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t8wtf"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_171n2"]
+advance_mode = 2
+advance_condition = &"IsWaving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eatyh"]
+advance_mode = 2
+advance_condition = &"IsStanding"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t62jn"]
+advance_mode = 2
+advance_condition = &"IsWalking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ts83w"]
+advance_mode = 2
+advance_condition = &"IsSneaking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0mgnv"]
+advance_mode = 2
+advance_condition = &"IsRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x02fh"]
+advance_mode = 2
+advance_condition = &"IsStanding"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l53pt"]
+advance_mode = 2
+advance_condition = &"IsStanding"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y7tw5"]
+advance_mode = 2
+advance_condition = &"IsStanding"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v1f48"]
+advance_mode = 2
+advance_condition = &"IsWalking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wyxdx"]
+advance_mode = 2
+advance_condition = &"IsSneaking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eu5me"]
+advance_mode = 2
+advance_condition = &"IsRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sl3pl"]
+advance_mode = 2
+advance_condition = &"IsSneaking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iibnx"]
+advance_mode = 2
+advance_condition = &"IsWalking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_orukf"]
+advance_mode = 2
+advance_condition = &"IsRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4mxoa"]
+advance_mode = 2
+advance_condition = &"IsWaving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t1tfa"]
+advance_mode = 2
+advance_condition = &"IsRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mk2j6"]
+advance_mode = 2
+advance_condition = &"IsWaving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3uerc"]
+advance_mode = 2
+advance_condition = &"IsSneaking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6vkky"]
+advance_mode = 2
+advance_condition = &"IsWaving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ex0ma"]
+advance_mode = 2
+advance_condition = &"IsWalking"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_t62jn"]
+states/End/position = Vector2(1001, 58)
+states/Idle/node = SubResource("AnimationNodeAnimation_pvfdq")
+states/Idle/position = Vector2(288, 58)
+states/Run/node = SubResource("AnimationNodeAnimation_3jt4m")
+states/Run/position = Vector2(288, 299)
+states/Sneak/node = SubResource("AnimationNodeAnimation_uayag")
+states/Sneak/position = Vector2(555, 406)
+states/Start/position = Vector2(47, 58)
+states/Walk/node = SubResource("AnimationNodeAnimation_4yi8y")
+states/Walk/position = Vector2(944, 232)
+states/WaveL/node = SubResource("AnimationNodeAnimation_w4s0n")
+states/WaveL/position = Vector2(598, -18)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_t8wtf"), "Idle", "WaveL", SubResource("AnimationNodeStateMachineTransition_171n2"), "WaveL", "Idle", SubResource("AnimationNodeStateMachineTransition_eatyh"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_t62jn"), "Idle", "Sneak", SubResource("AnimationNodeStateMachineTransition_ts83w"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_0mgnv"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_x02fh"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_l53pt"), "Sneak", "Idle", SubResource("AnimationNodeStateMachineTransition_y7tw5"), "Sneak", "Walk", SubResource("AnimationNodeStateMachineTransition_v1f48"), "Walk", "Sneak", SubResource("AnimationNodeStateMachineTransition_wyxdx"), "Sneak", "Run", SubResource("AnimationNodeStateMachineTransition_eu5me"), "Run", "Sneak", SubResource("AnimationNodeStateMachineTransition_sl3pl"), "Run", "Walk", SubResource("AnimationNodeStateMachineTransition_iibnx"), "Walk", "Run", SubResource("AnimationNodeStateMachineTransition_orukf"), "Run", "WaveL", SubResource("AnimationNodeStateMachineTransition_4mxoa"), "WaveL", "Run", SubResource("AnimationNodeStateMachineTransition_t1tfa"), "Sneak", "WaveL", SubResource("AnimationNodeStateMachineTransition_mk2j6"), "WaveL", "Sneak", SubResource("AnimationNodeStateMachineTransition_3uerc"), "Walk", "WaveL", SubResource("AnimationNodeStateMachineTransition_6vkky"), "WaveL", "Walk", SubResource("AnimationNodeStateMachineTransition_ex0ma")]
+graph_offset = Vector2(-67, -73)
+
+[node name="CharacterModel3D" node_paths=PackedStringArray("CharacterRig", "CharacterSkeleton", "CharacterAnimationPlayer", "CharacterAnimationTree") instance=ExtResource("1_u26vk")]
+script = ExtResource("2_pvfdq")
+CharacterRig = NodePath("Armature/Skeleton3D")
+CharacterSkeleton = NodePath("Armature/Skeleton3D/Character")
+CharacterAnimationPlayer = NodePath("AnimationPlayer")
+CharacterAnimationTree = NodePath("AnimationTree")
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(-0.012780102, -0.00073095656, 0.06916314, 0.9975233)
+bones/3/rotation = Quaternion(2.9271377e-10, -0.001792207, 0.08477986, 0.9963981)
+bones/5/position = Vector3(-0.35585344, 0.6359255, -7.363079e-15)
+bones/5/rotation = Quaternion(-9.851086e-10, 3.7040447e-08, 0.9993528, 0.03597405)
+bones/6/rotation = Quaternion(0, -5.551115e-17, 0, 1)
+bones/7/position = Vector3(0.35585344, 0.6359255, -7.363079e-15)
+bones/7/rotation = Quaternion(0.034364287, -0.0012732825, -0.13036431, 0.99086964)
+bones/8/rotation = Quaternion(0.0010613918, 0.01213176, 0.3487345, 0.9371425)
+bones/11/rotation = Quaternion(0.7071068, -3.0908627e-08, -3.0626617e-07, 0.7071068)
+bones/14/rotation = Quaternion(0.7071068, 3.0908627e-08, 3.0626617e-07, 0.7071068)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+libraries = {
+&"": SubResource("AnimationLibrary_1sags")
+}
+tree_root = SubResource("AnimationNodeStateMachine_t62jn")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/IsRunning = false
+parameters/conditions/IsSneaking = false
+parameters/conditions/IsStanding = false
+parameters/conditions/IsWalking = false
+parameters/conditions/IsWaving = false

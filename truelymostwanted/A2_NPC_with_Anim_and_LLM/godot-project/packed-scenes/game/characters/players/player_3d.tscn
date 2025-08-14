@@ -1,0 +1,119 @@
+[gd_scene load_steps=16 format=3 uid="uid://bj17hl5840dts"]
+
+[ext_resource type="Script" uid="uid://qgqa4qosrcqp" path="res://scripts/game/player/Player3D.cs" id="1_bb7ep"]
+[ext_resource type="Resource" uid="uid://eyrxbtdjgepn" path="res://resources/components/inventory_component.tres" id="2_afcav"]
+[ext_resource type="Script" uid="uid://ljbase8grra" path="res://scripts/game/abilties/Character3dMovementAbility.cs" id="3_afcav"]
+[ext_resource type="Script" uid="uid://dvi5jq0m5j6b0" path="res://scripts/game/components/CharacterStateComponent.cs" id="3_dhtnm"]
+[ext_resource type="PackedScene" uid="uid://cmxiw3fy7t5oc" path="res://packed-scenes/game/characters/players/player_character_model_3d.tscn" id="3_pgd5a"]
+[ext_resource type="Script" uid="uid://cdm5qliv7wstl" path="res://scripts/game/abilties/Character3dLookAroundAbility.cs" id="4_afcav"]
+[ext_resource type="Script" uid="uid://k0eux5l6cqh7" path="res://scripts/game/characters/nodes/EarsArea3D.cs" id="4_plnn8"]
+[ext_resource type="Script" uid="uid://hnu7gm56cemp" path="res://scripts/game/abilties/Character3dInteractAbility.cs" id="5_48fsr"]
+[ext_resource type="Script" uid="uid://bf2p5ob8vdi2h" path="res://scripts/game/abilties/Character3dPauseAbility.cs" id="6_plnn8"]
+[ext_resource type="Script" uid="uid://cgxo1n1jnf0tl" path="res://scripts/game/abilties/Character3dInventoryNextSlotAbility.cs" id="7_0m8qm"]
+[ext_resource type="Script" uid="uid://rrbghxwbxs4m" path="res://scripts/game/abilties/Character3dInventoryPreviousSlotAbility.cs" id="8_u7ws2"]
+[ext_resource type="Script" uid="uid://y357b2hvl71a" path="res://scripts/game/abilties/Character3dRayCastAbility.cs" id="9_opger"]
+
+[sub_resource type="Resource" id="Resource_dhtnm"]
+script = ExtResource("3_dhtnm")
+metadata/_custom_type_script = "uid://dvi5jq0m5j6b0"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rurhu"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_48fsr"]
+radius = 10.0
+
+[node name="Player3D" type="CharacterBody3D" node_paths=PackedStringArray("CharacterModel", "Abilities", "Behaviours", "Eyes", "Ears")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_bb7ep")
+PlayerName = "Spieler"
+CharacterModel = NodePath("PlayerCharacterModel3D")
+Abilities = [NodePath("Player3dMovementAbility"), NodePath("Player3dLookAroundAbility"), NodePath("Player3dInteractAbility"), NodePath("Player3dPauseAbility"), NodePath("Player3dInventoryNextSlotAbility"), NodePath("Player3dInventoryPreviousSlotAbility"), NodePath("Player3dRayCastAbility")]
+Behaviours = []
+Components = Array[Resource]([ExtResource("2_afcav"), SubResource("Resource_dhtnm")])
+Eyes = NodePath("Camera3D_PlayerEyes")
+Ears = NodePath("Area3D_PlayersEars")
+metadata/_custom_type_script = "uid://qgqa4qosrcqp"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_rurhu")
+
+[node name="PlayerCharacterModel3D" parent="." instance=ExtResource("3_pgd5a")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Camera3D_PlayerEyes" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45256, -0.565823)
+current = true
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Camera3D_PlayerEyes"]
+light_energy = 5.0
+spot_range = 20.0
+spot_angle = 24.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D_PlayerEyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1077e-09, 0, -0.0469866)
+target_position = Vector3(0, 0, -2)
+
+[node name="Area3D_PlayersEars" type="Area3D" parent="." node_paths=PackedStringArray("PlayersInRange", "NpcsInRange")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("4_plnn8")
+PlayersInRange = []
+TrackNpcs = true
+NpcsInRange = []
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D_PlayersEars"]
+shape = SubResource("SphereShape3D_48fsr")
+
+[node name="Player3dMovementAbility" type="Node" parent="." node_paths=PackedStringArray("AbilityOwner")]
+script = ExtResource("3_afcav")
+AbilityOwner = NodePath("..")
+InputActionNames = Array[String](["player_move_left", "player_move_right", "player_move_forward", "player_move_backward", "player_sprint", "player_sneak"])
+TriggersOnPressed = true
+metadata/_custom_type_script = "uid://ljbase8grra"
+
+[node name="Player3dLookAroundAbility" type="Node" parent="." node_paths=PackedStringArray("AbilityOwner")]
+script = ExtResource("4_afcav")
+AbilityOwner = NodePath("..")
+InputActionNames = Array[String](["player_look_left", "player_look_right", "player_look_up", "player_look_down"])
+TriggersOnPressed = true
+metadata/_custom_type_script = "uid://cdm5qliv7wstl"
+
+[node name="Player3dInteractAbility" type="Node" parent="." node_paths=PackedStringArray("AbilityOwner")]
+script = ExtResource("5_48fsr")
+AbilityOwner = NodePath("..")
+InputActionNames = Array[String](["player_interact"])
+TriggersOnJustReleased = false
+metadata/_custom_type_script = "uid://hnu7gm56cemp"
+
+[node name="Player3dPauseAbility" type="Node" parent="." node_paths=PackedStringArray("AbilityOwner")]
+process_mode = 3
+script = ExtResource("6_plnn8")
+AbilityOwner = NodePath("..")
+InputActionNames = Array[String](["game_pause"])
+TriggersOnJustReleased = false
+metadata/_custom_type_script = "uid://bf2p5ob8vdi2h"
+
+[node name="Player3dInventoryNextSlotAbility" type="Node" parent="." node_paths=PackedStringArray("AbilityOwner")]
+script = ExtResource("7_0m8qm")
+AbilityOwner = NodePath("..")
+InputActionNames = Array[String](["player_inventory_slot_next"])
+TriggersOnJustReleased = false
+metadata/_custom_type_script = "uid://cgxo1n1jnf0tl"
+
+[node name="Player3dInventoryPreviousSlotAbility" type="Node" parent="." node_paths=PackedStringArray("AbilityOwner")]
+script = ExtResource("8_u7ws2")
+AbilityOwner = NodePath("..")
+InputActionNames = Array[String](["player_inventory_slot_previous"])
+TriggersOnJustReleased = false
+metadata/_custom_type_script = "uid://rrbghxwbxs4m"
+
+[node name="Player3dRayCastAbility" type="Node" parent="." node_paths=PackedStringArray("RayCast", "AbilityOwner")]
+script = ExtResource("9_opger")
+RayCast = NodePath("../Camera3D_PlayerEyes/RayCast3D")
+AbilityOwner = NodePath("..")
+InputActionNames = []
+TriggersOnJustReleased = false
+metadata/_custom_type_script = "uid://y357b2hvl71a"

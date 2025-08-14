@@ -1,0 +1,100 @@
+[gd_scene load_steps=13 format=3 uid="uid://dk8arfctj4ysx"]
+
+[ext_resource type="Script" uid="uid://ds5kepysfplpd" path="res://scripts/game/npc/Npc3D.cs" id="1_w22jb"]
+[ext_resource type="PackedScene" uid="uid://cjslp0sfarnw6" path="res://packed-scenes/game/characters/npcs/npc_character_model_3d.tscn" id="3_yhsm2"]
+[ext_resource type="Script" uid="uid://k0eux5l6cqh7" path="res://scripts/game/characters/nodes/EarsArea3D.cs" id="4_huiju"]
+[ext_resource type="Script" uid="uid://c5r08bsx85ba3" path="res://scripts/game/npc/behaviours/EarsNpcBehaviour3D.cs" id="5_yhsm2"]
+[ext_resource type="Script" uid="uid://cq5ipwe76r3rn" path="res://scripts/game/npc/behaviours/EyesNpcBehaviour3D.cs" id="6_4xos7"]
+[ext_resource type="Script" uid="uid://dta7jumxybtpm" path="res://scripts/game/npc/ability/ResponseNpcAbility3d.cs" id="6_yhsm2"]
+[ext_resource type="Texture2D" uid="uid://coksmah2bqb71" path="res://resources/textures/indicator_ear_hearing.png" id="7_uqafd"]
+[ext_resource type="Texture2D" uid="uid://b7mms8chjrvs0" path="res://resources/textures/indicator_ear_silent.png" id="8_aed7r"]
+[ext_resource type="Texture2D" uid="uid://cf6d6olfvg6gx" path="res://resources/textures/indicator_eye_closed.png" id="9_u8spa"]
+[ext_resource type="Texture2D" uid="uid://bcnfwysy50jul" path="res://resources/textures/indicator_eye_open.png" id="10_0uvqf"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rurhu"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_48fsr"]
+radius = 10.0
+
+[node name="Npc3D" type="CharacterBody3D" node_paths=PackedStringArray("CharacterModel", "Abilities", "Behaviours", "Eyes", "Ears")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_w22jb")
+CharacterModel = NodePath("NpcCharacterModel3D")
+Abilities = [NodePath("ResponseNpcAbility3d")]
+Behaviours = [NodePath("EarsNpcBehaviour3D"), NodePath("EyesNpcBehaviour3D")]
+Components = Array[Object]([])
+Eyes = NodePath("Camera3D_NpcEyes")
+Ears = NodePath("Area3D_NpcEars")
+metadata/_custom_type_script = "uid://qgqa4qosrcqp"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_rurhu")
+
+[node name="NpcCharacterModel3D" parent="." instance=ExtResource("3_yhsm2")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Camera3D_NpcEyes" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45256, -0.565823)
+cull_mask = 0
+far = 30.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D_NpcEyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1077e-09, 0, -0.0469866)
+target_position = Vector3(0, 0, -2)
+collision_mask = 3
+
+[node name="Area3D_NpcEars" type="Area3D" parent="." node_paths=PackedStringArray("PlayersInRange", "NpcsInRange")]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("4_huiju")
+TrackPlayers = true
+PlayersInRange = Array[Object]([])
+NpcsInRange = Array[Object]([])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D_NpcEars"]
+shape = SubResource("SphereShape3D_48fsr")
+
+[node name="EarsNpcBehaviour3D" type="Node3D" parent="." node_paths=PackedStringArray("IsHearingSprite3D", "IsNotHearingSprite3D", "OwningPlayer")]
+script = ExtResource("5_yhsm2")
+IsHearingSprite3D = NodePath("../Sprite3D_Ear_On")
+IsNotHearingSprite3D = NodePath("../Sprite3D_Ear_Off")
+OwningPlayer = NodePath("..")
+metadata/_custom_type_script = "uid://c5r08bsx85ba3"
+
+[node name="EyesNpcBehaviour3D" type="Node3D" parent="." node_paths=PackedStringArray("IsViewingSprite3D", "IsNotViewingSprite3D", "OwningPlayer")]
+script = ExtResource("6_4xos7")
+IsViewingSprite3D = NodePath("../Sprite3D_Eye_On")
+IsNotViewingSprite3D = NodePath("../Sprite3D_Eye_Off")
+OwningPlayer = NodePath("..")
+metadata/_custom_type_script = "uid://cq5ipwe76r3rn"
+
+[node name="ResponseNpcAbility3d" type="Node" parent="." node_paths=PackedStringArray("AbilityOwner")]
+script = ExtResource("6_yhsm2")
+AbilityOwner = NodePath("..")
+InputActionNames = Array[Object]([])
+TriggersOnJustPressed = false
+TriggersOnJustReleased = false
+metadata/_custom_type_script = "uid://dta7jumxybtpm"
+
+[node name="Sprite3D_Ear_On" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 2.3185306, -1.748456e-08)
+pixel_size = 0.0015
+texture = ExtResource("7_uqafd")
+
+[node name="Sprite3D_Ear_Off" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 2.3185306, -1.748456e-08)
+pixel_size = 0.0015
+texture = ExtResource("8_aed7r")
+
+[node name="Sprite3D_Eye_Off" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1905409, 2.3185306, 1.6657618e-08)
+pixel_size = 0.0015
+texture = ExtResource("9_u8spa")
+
+[node name="Sprite3D_Eye_On" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1905409, 2.3185306, 1.6657618e-08)
+pixel_size = 0.0015
+texture = ExtResource("10_0uvqf")

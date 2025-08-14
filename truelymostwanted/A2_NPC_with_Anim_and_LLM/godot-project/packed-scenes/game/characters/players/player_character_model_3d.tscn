@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmxiw3fy7t5oc"]
+
+[ext_resource type="PackedScene" uid="uid://6rf18cpxbrr" path="res://packed-scenes/game/characters/character_model.tscn" id="1_5fasx"]
+
+[node name="PlayerCharacterModel3D" instance=ExtResource("1_5fasx")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(0.008726535, 0, 0, 0.9999619)
+bones/5/rotation = Quaternion(4.2885054e-15, 3.7748954e-08, 1, -5.960465e-08)
+bones/7/rotation = Quaternion(4.2885054e-15, -3.7748954e-08, -1, -5.960465e-08)

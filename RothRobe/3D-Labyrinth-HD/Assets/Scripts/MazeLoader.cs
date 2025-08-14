@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class MazeLoader : MonoBehaviour
 {
@@ -15,6 +13,7 @@ public class MazeLoader : MonoBehaviour
     public GameObject metalPrefab;
     public GameObject floorPrefab;
     public GameObject targetPrefab;
+    public GameObject npcPrefab;
     public GameObject playerObject;
 
     //[Header("Tile Settings")]
@@ -87,6 +86,13 @@ public class MazeLoader : MonoBehaviour
                             //Instantiate(playerPrefab, spawnPos + Vector3.up * 1f, Quaternion.identity);
                             playerObject.transform.position = spawnPos;
                             playerSpawned = true;
+                        }
+                        break;
+                    case 'N':
+                        if (npcPrefab)
+                        {
+                            spawnPos = new Vector3(spawnPos.x, 0, spawnPos.z);
+                            Instantiate(npcPrefab, spawnPos, Quaternion.identity);
                         }
                         break;
                     case '.':

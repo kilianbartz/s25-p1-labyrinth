@@ -7,31 +7,34 @@ public class movement : MonoBehaviour
     public float rotationSpeed = 90f;
     public GameObject winScreen;
     private bool ended = false;
+    public static bool aktive = true;
 
     private void Update()
     {
-        if (!ended)
-        {
-            if (Input.GetKey(KeyCode.W))
+        if(aktive){
+            if (!ended)
             {
-                blickrichtung = gameObject.transform.forward;
-                transform.position += blickrichtung * speed * Time.deltaTime;
-            }
+                if (Input.GetKey(KeyCode.W))
+                {
+                    blickrichtung = gameObject.transform.forward;
+                    transform.position += blickrichtung * speed * Time.deltaTime;
+                }
 
-            if (Input.GetKey(KeyCode.S))
-            {
-                blickrichtung = gameObject.transform.forward;
-                transform.position += blickrichtung * speed * Time.deltaTime * -1;
-            }
+                if (Input.GetKey(KeyCode.S))
+                {
+                    blickrichtung = gameObject.transform.forward;
+                    transform.position += blickrichtung * speed * Time.deltaTime * -1;
+                }
 
-            if (Input.GetKey(KeyCode.A))
-            {
-                transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime * -1);
-            }
+                if (Input.GetKey(KeyCode.A))
+                {
+                    transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime * -1);
+                }
 
-            if (Input.GetKey(KeyCode.D))
-            {
-                transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+                if (Input.GetKey(KeyCode.D))
+                {
+                    transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+                }
             }
         }
     }

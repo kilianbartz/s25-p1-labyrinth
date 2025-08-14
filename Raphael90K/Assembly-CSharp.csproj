@@ -48,10 +48,14 @@
   <ItemGroup>
     <Compile Include="Assets\Controllers\ThirdPersonController\Scripts\ThirdPersonController.cs" />
     <Compile Include="Assets\Controllers\FirstPersonController\FirstPersonController.cs" />
+    <Compile Include="Assets\Scrips\FaceTextureSwitcher.cs" />
     <Compile Include="Assets\Controllers\Common\InputSystem\StarterAssetsInputs.cs" />
     <Compile Include="Assets\Scrips\GoalTrigger.cs" />
+    <Compile Include="Assets\Scrips\NpcController.cs" />
     <Compile Include="Assets\Controllers\Common\BasicRigidBodyPush.cs" />
     <Compile Include="Assets\Scrips\LabyrinthParser.cs" />
+    <Compile Include="Assets\Scrips\EnemyAnimator.cs" />
+    <Compile Include="Assets\Scrips\NpcKiClient.cs" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Programme\Unity\Hub\Editor\6000.1.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -951,6 +955,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BerichtÜ2.pdf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
